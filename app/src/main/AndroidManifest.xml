@@ -18,15 +18,10 @@
         <activity
             android:name=".Activity.Detail_information"
             android:exported="false" />
-        <activity
-            android:name=".Activity.DetailHomeServices"
-            android:exported="false" />
         <activity android:name=".Activity.BookingServices" />
         <activity android:name=".Activity.SummaryOrder" />
         <activity android:name=".Activity.OrderSucced" />
         <activity android:name=".Activity.ServiceType" />
-        <activity android:name=".Activity.ServiceTypeHome" />
-        <activity android:name=".Activity.HomeServices"/>
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true">

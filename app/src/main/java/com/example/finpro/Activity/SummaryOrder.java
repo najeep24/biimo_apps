@@ -12,6 +12,7 @@ import com.example.finpro.R;
 import com.example.finpro.Viewmodel.SummaryOrderViewModel;
 
 public class SummaryOrder extends AppCompatActivity {
+    private TextView bookOrHome;
     private TextView next;
     private TextView vehicleTypeText, brandText, modelText, variantText, yearText;
     private TextView serviceTypeText, dateText, timeText, priceEstimationText;
@@ -31,6 +32,7 @@ public class SummaryOrder extends AppCompatActivity {
     }
 
     private void initializeViews() {
+        bookOrHome = findViewById(R.id.bookOrHome);
         next = findViewById(R.id.Next);
         vehicleImage = findViewById(R.id.vehicleImage);
         vehicleTypeText = findViewById(R.id.vehicleTypeText);
@@ -60,6 +62,10 @@ public class SummaryOrder extends AppCompatActivity {
             viewModel.setBookingTime(extras.getString("bookingTime", ""));
             viewModel.setPriceEstimation(extras.getString("priceEstimation", ""));
         }
+
+        if (extras != null) {
+            viewModel.setServiceCategory(extras.getString("serviceCategory", ""));
+        }
     }
 
     private void setupClickListeners() {
@@ -85,5 +91,10 @@ public class SummaryOrder extends AppCompatActivity {
         viewModel.getBookingDate().observe(this, value -> dateText.setText(value));
         viewModel.getBookingTime().observe(this, value -> timeText.setText(value));
         viewModel.getPriceEstimation().observe(this, value -> priceEstimationText.setText(value));
+        viewModel.getServiceCategory().observe(this, category -> {
+            String displayText = "bookServices".equals(category) ?
+                    "Booking Service" : "Home Service";
+            bookOrHome.setText(displayText);
+        });
     }
 }
