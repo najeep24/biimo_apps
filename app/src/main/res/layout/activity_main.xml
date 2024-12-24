@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".Activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -157,6 +158,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
+                                android:textColor="@color/dark_gray"
                                 android:text="Booking Services"
                                 android:textAlignment="center"
                                 android:textStyle="bold" />
@@ -202,6 +204,7 @@
                                 android:layout_marginTop="8dp"
                                 android:text="Home Services"
                                 android:textAlignment="center"
+                                android:textColor="@color/dark_gray"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -244,6 +247,7 @@
                                 android:layout_marginTop="8dp"
                                 android:text="Chatbot"
                                 android:textAlignment="center"
+                                android:textColor="@color/dark_gray"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -304,6 +308,7 @@
                                 android:layout_marginLeft="11dp"
                                 android:layout_marginRight="11dp"
                                 android:layout_marginBottom="7dp"
+                                android:textColor="@color/dark_gray"
                                 android:text="Servis Berkala"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -314,6 +319,7 @@
                                 android:layout_height="24dp"
                                 android:layout_marginLeft="11dp"
                                 android:layout_marginRight="11dp"
+                                android:textColor="@color/dark_gray"
                                 android:layout_marginBottom="9dp"
                                 android:text="Regular Maintenance"
                                 android:textSize="10sp" />
@@ -344,6 +350,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="11dp"
                                 android:layout_marginRight="11dp"
+                                android:textColor="@color/dark_gray"
                                 android:layout_marginBottom="7dp"
                                 android:text="Isi Freon AC"
                                 android:textSize="12sp"
@@ -355,6 +362,7 @@
                                 android:layout_height="24dp"
                                 android:layout_marginLeft="11dp"
                                 android:layout_marginRight="11dp"
+                                android:textColor="@color/dark_gray"
                                 android:layout_marginBottom="9dp"
                                 android:text="Regular Maintenance"
                                 android:textSize="10sp" />
@@ -391,6 +399,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="11dp"
+                                android:textColor="@color/dark_gray"
                                 android:layout_marginRight="11dp"
                                 android:layout_marginBottom="7dp"
                                 android:text="Ganti Ban"
@@ -402,6 +411,7 @@
                                 android:layout_width="91.8dp"
                                 android:layout_height="24dp"
                                 android:layout_marginLeft="11dp"
+                                android:textColor="@color/dark_gray"
                                 android:layout_marginRight="11dp"
                                 android:layout_marginBottom="9dp"
                                 android:text="Regular Maintenance"
@@ -431,6 +441,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="11dp"
+                                android:textColor="@color/dark_gray"
                                 android:layout_marginRight="11dp"
                                 android:layout_marginBottom="7dp"
                                 android:text="Ganti Oli"
@@ -442,6 +453,7 @@
                                 android:layout_width="91.8dp"
                                 android:layout_height="24dp"
                                 android:layout_marginLeft="11dp"
+                                android:textColor="@color/dark_gray"
                                 android:layout_marginRight="11dp"
                                 android:layout_marginBottom="9dp"
                                 android:text="Regular Maintenance"

@@ -43,12 +43,16 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
+    implementation(libs.lifecycle.viewmodel.android)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.bumptech.glide:glide:4.12.0") {
         exclude(group = "com.android.support")
     }
+
+    implementation ("com.google.android.material:material:1.5.0")
     implementation("com.google.code.gson:gson:2.8.7")
     implementation("androidx.core:core:1.13.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")

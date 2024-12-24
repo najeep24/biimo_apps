@@ -65,14 +65,13 @@
                 android:elevation="5dp">
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/addOnsiteSerivce"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/linearLayout4"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/add_circle" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout4"
@@ -85,10 +84,11 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/onsiteServicesText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_bold"
+                        android:textColor="@color/selected_date"
                         android:text="On-Site Consultation"
                         android:textSize="12sp" />
 
@@ -96,6 +96,7 @@
                         android:id="@+id/textView23"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/dark_gray"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="@font/inter"
@@ -103,7 +104,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/textView24"
+                        android:id="@+id/priceOnsite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -117,8 +118,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_light"
+                        android:textColor="@color/dark_gray"
                         android:text="*Harga bisa bertambah tergantung perbaikan"
-                        android:textSize="8sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -139,27 +141,24 @@
                 android:id="@+id/recyclerViewType"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="166dp">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="166dp"
         android:background="@drawable/total_estimasi"
         android:elevation="10dp"
         android:orientation="vertical"
         android:paddingLeft="25dp"
-        android:paddingRight="25dp"
         android:paddingTop="25dp"
+        android:paddingRight="25dp"
         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -169,16 +168,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:textColor="@color/dark_gray"
             android:fontFamily="@font/inter_medium"
             android:text="Total Estimasi" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/priceEstimation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            android:text="Rp 50.000"
             android:layout_marginBottom="5dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Rp 0"
+            android:textColor="@color/dark_gray"
             android:textSize="16dp" />
 
         <TextView
@@ -190,8 +191,7 @@
             android:fontFamily="@font/inter_bold"
             android:gravity="center"
             android:text="Next"
-            android:textColor="#FFFFFF"
-            />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

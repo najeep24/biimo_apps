@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/Next"
@@ -39,15 +40,15 @@
             >
 
             <ImageView
-                android:id="@+id/imageView22"
+                android:id="@+id/vehicleImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/moge_summary" />
+                app:srcCompat="@drawable/mobil" />
 
             <TextView
-                android:id="@+id/textView35"
+                android:id="@+id/vehicleTypeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -60,40 +61,52 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView32"
+                android:id="@+id/brandText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
                 android:text="TextView"
                 android:fontFamily="@font/inter_medium"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/imageView22"
+                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView33"
+                android:id="@+id/modelText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/inter_bold"
                 android:textColor="@color/white"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/imageView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView32" />
+                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
+                app:layout_constraintTop_toBottomOf="@+id/brandText" />
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/variantText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/white"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
+                app:layout_constraintTop_toBottomOf="@+id/modelText" />
+
+            <TextView
+                android:id="@+id/yearText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
                 android:text="TextView"
                 android:fontFamily="@font/inter_light"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/imageView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
+                app:layout_constraintTop_toBottomOf="@+id/variantText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
@@ -111,13 +124,15 @@
             android:fontFamily="@font/inter_light"
             android:textSize="16sp"
             android:layout_marginBottom="9dp"
+            android:textColor="@color/dark_gray"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Service Type" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/serviceTypeText"
             android:layout_marginLeft="40dp"
+            android:textColor="@color/selected_date"
             android:layout_marginRight="40dp"
             android:fontFamily="@font/inter_bold"
             android:textSize="20sp"
@@ -133,6 +148,7 @@
             android:fontFamily="@font/inter_light"
             android:textSize="16sp"
             android:layout_width="match_parent"
+            android:textColor="@color/dark_gray"
             android:layout_height="wrap_content"
             android:text="Adress" />
 
@@ -140,6 +156,7 @@
             android:id="@+id/textView15"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
+            android:textColor="@color/selected_date"
             android:fontFamily="@font/inter_bold"
             android:textSize="12sp"
             android:layout_marginBottom="17dp"
@@ -152,16 +169,29 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:fontFamily="@font/inter_light"
+            android:textColor="@color/dark_gray"
             android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Date and Time" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/dateText"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:fontFamily="@font/inter_bold"
+            android:textColor="@color/selected_date"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="17dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"/>
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/selected_date"
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_marginBottom="17dp"
@@ -173,18 +203,20 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:fontFamily="@font/inter_light"
+            android:textColor="@color/dark_gray"
             android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Estimasi Biaya Service" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/priceEstimationText"
             android:fontFamily="@font/inter_bold"
             android:textSize="20sp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_width="match_parent"
+            android:textColor="@color/selected_date"
             android:layout_height="wrap_content"
             android:text="TextView" />
 

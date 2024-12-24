@@ -5,7 +5,7 @@
     android:layout_width="59dp"
     android:layout_height="67dp"
     android:layout_margin="8dp"
-    android:background="@drawable/date_bg"
+    android:background="@drawable/date_book_selector"
     android:elevation="2dp">
 
     <TextView
@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_light"
+        android:textColor="@drawable/date_book_text"
         android:text="Today"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/dateBook"
@@ -25,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_medium"
+        android:textColor="@drawable/date_book_text"
         android:text="1"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
