@@ -38,6 +38,9 @@ public class ServiceType extends AppCompatActivity implements ServiceTypeAdaptor
         onsiteServicesText = findViewById(R.id.onsiteServicesText);
         priceOnsite = findViewById(R.id.priceOnsite);
 
+        String serviceCategory = getIntent().getStringExtra("serviceCategory");
+        viewModel.setServiceCategory(serviceCategory);
+
         next = findViewById(R.id.Next);
         next.setOnClickListener(view -> {
             Intent intent = new Intent(ServiceType.this, BookingServices.class);
@@ -50,6 +53,7 @@ public class ServiceType extends AppCompatActivity implements ServiceTypeAdaptor
             intent.putExtra("serviceType", serviceType);
             intent.putExtra("priceEstimation", priceEstimation.getText().toString());
             intent.putExtras(getIntent().getExtras());
+            intent.putExtra("serviceCategory", serviceCategory);
             startActivity(intent);
         });
 

@@ -16,6 +16,7 @@ import com.example.finpro.Domain.ServiceTypeDomain;
 import java.util.ArrayList;
 
 public class ServiceTypeViewModel extends ViewModel {
+    private String serviceCategory;
     private static final String TAG = "ServiceTypeViewModel";
     private MutableLiveData<ArrayList<ServiceTypeDomain>> serviceList;
     private MutableLiveData<OnSiteServiceDomain> onsiteService;
@@ -28,6 +29,10 @@ public class ServiceTypeViewModel extends ViewModel {
         serviceList = new MutableLiveData<>();
         onsiteService = new MutableLiveData<>();
         dbRef = FirebaseDatabase.getInstance().getReference().child("serviceTypes");
+    }
+
+    public void setServiceCategory(String category) {
+        this.serviceCategory = category;
     }
 
     public void setVehicleType(String type) {
@@ -48,7 +53,10 @@ public class ServiceTypeViewModel extends ViewModel {
     private void loadOnsiteService() {
         if (selectedVehicleType == null) return;
 
-        DatabaseReference onsiteRef = dbRef.child(selectedVehicleType).child("onsite");
+        DatabaseReference onsiteRef = dbRef
+                .child(serviceCategory)
+                .child(selectedVehicleType)
+                .child("onsite");
 
         if (onsiteListener != null) {
             onsiteRef.removeEventListener(onsiteListener);
@@ -87,8 +95,10 @@ public class ServiceTypeViewModel extends ViewModel {
             return;
         }
 
-        DatabaseReference serviceRef = dbRef.child(selectedVehicleType).child("services");
-        Log.d(TAG, "Loading services from path: " + serviceRef.toString());
+        DatabaseReference serviceRef = dbRef
+                .child(serviceCategory)
+                .child(selectedVehicleType)
+                .child("services");
 
         if (valueEventListener != null) {
             serviceRef.removeEventListener(valueEventListener);

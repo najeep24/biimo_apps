@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         cardBookService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Pindah ke BookingServices
                 Intent intent = new Intent(MainActivity.this, Detail_information.class);
+                intent.putExtra("serviceCategory", "bookServices");
                 startActivity(intent);
             }
         });
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         cardHomeService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Pindah ke HomeServices
-                Intent intent = new Intent(MainActivity.this, DetailHomeServices.class);
+                Intent intent = new Intent(MainActivity.this, Detail_information.class);
+                intent.putExtra("serviceCategory", "homeServices");
                 startActivity(intent);
             }
         });

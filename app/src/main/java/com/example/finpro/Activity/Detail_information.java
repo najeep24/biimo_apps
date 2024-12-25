@@ -24,12 +24,15 @@ public class Detail_information extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton carButton, motorcycleButton;
     private DetailInformationViewModel viewModel;
+    private String serviceCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detail_information);
+
 
         viewModel = new ViewModelProvider(this).get(DetailInformationViewModel.class);
         initializeViews();
@@ -38,6 +41,13 @@ public class Detail_information extends AppCompatActivity {
 
         // Load initial data
         viewModel.loadBrands();
+
+        serviceCategory = getIntent().getStringExtra("serviceCategory");
+        if ("homeServices".equals(serviceCategory)) {
+            carButton.setEnabled(false);
+            carButton.setBackgroundResource(R.drawable.kendaraan_disable_background);
+            radioGroup.check(R.id.radioBtn_motor);
+        }
     }
 
     private void initializeViews() {
@@ -62,6 +72,7 @@ public class Detail_information extends AppCompatActivity {
             intent.putExtra("model", spinnerModels.getSelectedItem().toString());
             intent.putExtra("variant", spinnerVariants.getSelectedItem().toString());
             intent.putExtra("year", spinnerYears.getSelectedItem().toString());
+            intent.putExtra("serviceCategory", serviceCategory);
             startActivity(intent);
         });
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class SummaryOrderViewModel extends ViewModel {
+    private MutableLiveData<String> serviceCategory = new MutableLiveData<>();
     private MutableLiveData<String> vehicleType = new MutableLiveData<>();
     private MutableLiveData<String> brand = new MutableLiveData<>();
     private MutableLiveData<String> model = new MutableLiveData<>();
@@ -15,6 +16,7 @@ public class SummaryOrderViewModel extends ViewModel {
     private MutableLiveData<String> priceEstimation = new MutableLiveData<>();
 
     // Getters for LiveData
+    public LiveData<String> getServiceCategory() { return serviceCategory; }
     public LiveData<String> getVehicleType() { return vehicleType; }
     public LiveData<String> getBrand() { return brand; }
     public LiveData<String> getModel() { return model; }
@@ -26,6 +28,7 @@ public class SummaryOrderViewModel extends ViewModel {
     public LiveData<String> getPriceEstimation() { return priceEstimation; }
 
     // Setters for data
+    public void setServiceCategory(String value) { serviceCategory.setValue(value); }
     public void setVehicleType(String value) { vehicleType.setValue(value); }
     public void setBrand(String value) { brand.setValue(value); }
     public void setModel(String value) { model.setValue(value); }
