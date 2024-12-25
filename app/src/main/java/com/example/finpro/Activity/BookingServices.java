@@ -19,6 +19,7 @@ import com.example.finpro.R;
 import com.example.finpro.Viewmodel.BookingViewModel;
 import java.util.ArrayList;
 
+
 public class BookingServices extends AppCompatActivity implements DateAdaptor.OnDateClickListener {
     private TextView next;
     private BookingViewModel viewModel;
@@ -28,15 +29,18 @@ public class BookingServices extends AppCompatActivity implements DateAdaptor.On
     private RecyclerView recyclerViewTime;
     private ConstraintLayout mapsLayout;
     private RadioGroup radioGroup;
+    private String serviceCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_services);
 
+        serviceCategory = getIntent().getStringExtra("serviceCategory");
         initializeViews();
         setupViewModel();
         setupRecyclerViews();
+        setupLayoutBasedOnServiceType();
         setupClickListeners();
         observeViewModelData();
 
@@ -50,8 +54,19 @@ public class BookingServices extends AppCompatActivity implements DateAdaptor.On
         mapsLayout = findViewById(R.id.MapsLayout);
         recyclerViewDate = findViewById(R.id.RecyclerViewBs);
         recyclerViewTime = findViewById(R.id.RecyclerViewTimeBook);
+    }
 
-        radioGroup.check(R.id.radioBtn_SelfService);
+    private void setupLayoutBasedOnServiceType() {
+        if ("homeServices".equals(serviceCategory)) {
+            // For home services, hide radio group and always show maps
+            radioGroup.setVisibility(View.GONE);
+            mapsLayout.setVisibility(View.VISIBLE);
+        } else {
+            // For book services, show radio group and handle visibility
+            radioGroup.setVisibility(View.VISIBLE);
+            radioGroup.check(R.id.radioBtn_SelfService);
+            mapsLayout.setVisibility(View.GONE);
+        }
     }
 
     private void setupViewModel() {
@@ -76,15 +91,15 @@ public class BookingServices extends AppCompatActivity implements DateAdaptor.On
     }
 
     private void setupClickListeners() {
-        radioGroup.check(R.id.radioBtn_SelfService);
-        mapsLayout.setVisibility(View.GONE);
-
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            mapsLayout.setVisibility(checkedId == R.id.radioBtn_pickUp ? View.VISIBLE : View.GONE);
-        });
+        if ("bookServices".equals(serviceCategory)) {
+            radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+                mapsLayout.setVisibility(checkedId == R.id.radioBtn_pickUp ? View.VISIBLE : View.GONE);
+            });
+        }
 
         next.setOnClickListener(view -> {
             Intent intent = new Intent(BookingServices.this, SummaryOrder.class);
+
             // Add selected date and time
             DateDomain selectedDate = dateAdapter.getSelectedDate();
             String selectedTime = timeBookAdapter.getSelectedTime();
@@ -94,11 +109,19 @@ public class BookingServices extends AppCompatActivity implements DateAdaptor.On
             }
             intent.putExtra("bookingTime", selectedTime);
 
+            // Pass service type and delivery mode
+            intent.putExtra("serviceCategory", serviceCategory);
+            if ("bookServices".equals(serviceCategory)) {
+                boolean isSelfService = radioGroup.getCheckedRadioButtonId() == R.id.radioBtn_SelfService;
+                intent.putExtra("isSelfService", isSelfService);
+            }
+
             // Pass through all previous data
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
                 intent.putExtras(extras);
             }
+
             startActivity(intent);
         });
     }
