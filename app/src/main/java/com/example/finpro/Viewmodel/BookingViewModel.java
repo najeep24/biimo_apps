@@ -16,6 +16,7 @@ import java.util.List;
 public class BookingViewModel extends ViewModel {
     private final MutableLiveData<List<DateDomain>> dates = new MutableLiveData<>();
     private final MutableLiveData<List<TimeBookDomain>> timeSlots = new MutableLiveData<>();
+    private final MutableLiveData<DateDomain> firstAvailableDate = new MutableLiveData<>();
     private final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("bookingSlots");
 
     public LiveData<List<DateDomain>> getDates() {
@@ -26,11 +27,16 @@ public class BookingViewModel extends ViewModel {
         return timeSlots;
     }
 
+    public LiveData<DateDomain> getFirstAvailableDate() {
+        return firstAvailableDate;
+    }
+
     public void fetchBookingDates(String year, String month) {
         dbRef.child(year).child(month).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<DateDomain> dateList = new ArrayList<>();
+                DateDomain firstAvailable = null;
 
                 for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
                     String date = dateSnapshot.getKey();
@@ -38,9 +44,21 @@ public class BookingViewModel extends ViewModel {
                     Boolean isHoliday = dateSnapshot.child("isHoliday").getValue(Boolean.class);
 
                     String status = (isHoliday != null && isHoliday) ? "Not Available" : "Available";
-                    dateList.add(new DateDomain(dayName, date, status));
+                    DateDomain dateDomain = new DateDomain(dayName, date, status);
+                    dateList.add(dateDomain);
+
+                    // Find first available date
+                    if (firstAvailable == null && "Available".equals(status)) {
+                        firstAvailable = dateDomain;
+                    }
                 }
+
                 dates.setValue(dateList);
+                if (firstAvailable != null) {
+                    firstAvailableDate.setValue(firstAvailable);
+                    // Automatically fetch time slots for first available date
+                    fetchTimeSlots(year, month, firstAvailable.getDate());
+                }
             }
 
             @Override

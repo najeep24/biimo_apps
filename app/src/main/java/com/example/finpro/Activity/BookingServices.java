@@ -134,6 +134,20 @@ public class BookingServices extends AppCompatActivity implements DateAdaptor.On
         viewModel.getTimeSlots().observe(this, timeSlots -> {
             timeBookAdapter.updateTimeSlots(timeSlots);
         });
+
+        viewModel.getFirstAvailableDate().observe(this, date -> {
+            if (date != null) {
+                dateAdapter.setSelectedDate(date);
+            }
+        });
+
+        viewModel.getTimeSlots().observe(this, timeSlots -> {
+            timeBookAdapter.updateTimeSlots(timeSlots);
+            // Ensure first time slot is selected
+            if (timeSlots != null && !timeSlots.isEmpty()) {
+                timeBookAdapter.selectFirstTimeSlot();
+            }
+        });
     }
 
     @Override
