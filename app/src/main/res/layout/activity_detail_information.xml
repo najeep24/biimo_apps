@@ -12,17 +12,14 @@
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
             android:orientation="vertical"
             android:paddingTop="30dp"
             android:paddingBottom="30dp"
@@ -80,50 +77,50 @@
                 android:id="@+id/spinner_brands"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
-                android:textColor="@color/dark_gray"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/textfield_bg"
+                android:padding="20dp"
                 android:popupBackground="@android:color/white"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
+                android:textColor="@color/dark_gray" />
 
             <Spinner
                 android:id="@+id/spinner_models"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
-                android:padding="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/textfield_bg"
+                android:padding="20dp"
                 android:popupBackground="@android:color/white"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
+                android:textColor="@color/dark_gray" />
 
             <Spinner
                 android:id="@+id/spinner_variants"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
-                android:padding="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/textfield_bg"
+                android:padding="20dp"
                 android:popupBackground="@android:color/white"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
+                android:textColor="@color/dark_gray" />
 
             <Spinner
                 android:id="@+id/spinner_years"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
-                android:padding="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/textfield_bg"
+                android:padding="20dp"
                 android:popupBackground="@android:color/white"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
+                android:textColor="@color/dark_gray" />
 
             <TextView
                 android:id="@+id/Next"
@@ -140,6 +137,42 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/toolbar_back"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_extrabold"
+            android:text="Detail Information"
+            android:textColor="#244753"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/container" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
@@ -229,41 +262,5 @@
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/toolbar_back"
-        android:elevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_extrabold"
-            android:text="Detail Information"
-            android:textColor="#244753"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/container" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

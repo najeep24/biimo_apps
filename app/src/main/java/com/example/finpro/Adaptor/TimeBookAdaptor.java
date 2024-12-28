@@ -32,6 +32,14 @@ public class TimeBookAdaptor extends RecyclerView.Adapter<TimeBookAdaptor.ViewHo
         notifyDataSetChanged();
     }
 
+    public void selectFirstTimeSlot() {
+        if (!arrayList.isEmpty()) {
+            lastCheckedPosition = 0;
+            arrayList.get(0).setSelected(true);
+            notifyDataSetChanged();
+        }
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,6 +51,7 @@ public class TimeBookAdaptor extends RecyclerView.Adapter<TimeBookAdaptor.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TimeBookDomain timeBookDomain = arrayList.get(position);
         holder.textTimeBook.setText(timeBookDomain.getTime());
+        holder.radioButtonTimeBook.setChecked(timeBookDomain.isSelected());
 
         if (isNewRadioButtonChecked) {
             holder.radioButtonTimeBook.setChecked(timeBookDomain.isSelected());

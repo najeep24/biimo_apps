@@ -6,233 +6,240 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <TextView
-        android:id="@+id/Next"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="67dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/background_button_atas"
-        android:fontFamily="@font/inter_bold"
-        android:gravity="center"
-        android:text="Confirm and Proceed"
-        android:textColor="#FFFFFF"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="273dp"
-            android:layout_height="142dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="21dp"
-            android:background="@drawable/background_button_atas"
-            android:elevation="5dp"
-            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="273dp"
+                android:layout_height="142dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="21dp"
+                android:background="@drawable/background_button_atas"
+                android:elevation="5dp">
+
+                <ImageView
+                    android:id="@+id/vehicleImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/mobil" />
+
+                <TextView
+                    android:id="@+id/vehicleTypeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/brandText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/vehicleImage"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/modelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/vehicleImage"
+                    app:layout_constraintTop_toBottomOf="@+id/brandText" />
+
+                <TextView
+                    android:id="@+id/variantText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/vehicleImage"
+                    app:layout_constraintTop_toBottomOf="@+id/modelText" />
+
+                <TextView
+                    android:id="@+id/yearText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter_light"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toEndOf="@+id/vehicleImage"
+                    app:layout_constraintTop_toBottomOf="@+id/variantText" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/vehicleImage"
+                android:id="@+id/imageView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/mobil" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="23dp"
+                app:srcCompat="@drawable/garis_pembatas_service_type" />
 
             <TextView
-                android:id="@+id/vehicleTypeText"
-                android:layout_width="wrap_content"
+                android:id="@+id/bookOrHome"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="TextView"
-                android:fontFamily="@font/inter_semibold"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/brandText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="40dp"
-                android:text="TextView"
-                android:fontFamily="@font/inter_medium"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/modelText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="17dp"
                 android:fontFamily="@font/inter_bold"
-                android:textColor="@color/white"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
-                app:layout_constraintTop_toBottomOf="@+id/brandText" />
+                android:textColor="@color/selected_date"
+                android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/variantText"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/inter_bold"
-                android:textColor="@color/white"
-                android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
-                app:layout_constraintTop_toBottomOf="@+id/modelText" />
-
-            <TextView
-                android:id="@+id/yearText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="2dp"
-                android:text="TextView"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="9dp"
                 android:fontFamily="@font/inter_light"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/vehicleImage"
-                app:layout_constraintTop_toBottomOf="@+id/variantText" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="Service Type"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/imageView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="23dp"
-            app:srcCompat="@drawable/garis_pembatas_service_type" />
+            <TextView
+                android:id="@+id/serviceTypeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="TextView"
+                android:textColor="@color/selected_date"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/bookOrHome"
-            android:layout_marginLeft="40dp"
-            android:textColor="@color/selected_date"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_bold"
-            android:textSize="20sp"
-            android:layout_marginBottom="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Adress"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_light"
-            android:textSize="16sp"
-            android:layout_marginBottom="9dp"
-            android:textColor="@color/dark_gray"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Service Type" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="TextView"
+                android:textColor="@color/selected_date"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/serviceTypeText"
-            android:layout_marginLeft="40dp"
-            android:textColor="@color/selected_date"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_bold"
-            android:textSize="20sp"
-            android:layout_marginBottom="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Date and Time"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_light"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:textColor="@color/dark_gray"
-            android:layout_height="wrap_content"
-            android:text="Adress" />
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="TextView"
+                android:textColor="@color/selected_date"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:textColor="@color/selected_date"
-            android:fontFamily="@font/inter_bold"
-            android:textSize="12sp"
-            android:layout_marginBottom="17dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <TextView
+                android:id="@+id/timeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="17dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="TextView"
+                android:textColor="@color/selected_date"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_light"
-            android:textColor="@color/dark_gray"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date and Time" />
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/inter_light"
+                android:text="Estimasi Biaya Service"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/dateText"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_bold"
-            android:textColor="@color/selected_date"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="17dp"
-            android:layout_height="wrap_content"
-            android:text="TextView"/>
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_bold"
-            android:textColor="@color/selected_date"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="17dp"
-            android:layout_height="wrap_content"
-            android:text="TextView"/>
+            <TextView
+                android:id="@+id/priceEstimationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="TextView"
+                android:textColor="@color/selected_date"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textView28"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/inter_light"
-            android:textColor="@color/dark_gray"
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Estimasi Biaya Service" />
+            <TextView
+                android:id="@+id/Next"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/background_button_atas"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:text="Confirm and Proceed"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/priceEstimationText"
-            android:fontFamily="@font/inter_bold"
-            android:textSize="20sp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_width="match_parent"
-            android:textColor="@color/selected_date"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"

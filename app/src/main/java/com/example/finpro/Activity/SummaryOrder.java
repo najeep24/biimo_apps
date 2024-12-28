@@ -18,6 +18,8 @@ public class SummaryOrder extends AppCompatActivity {
     private TextView serviceTypeText, dateText, timeText, priceEstimationText;
     private SummaryOrderViewModel viewModel;
     private ImageView vehicleImage;
+    private TextView addressLabel;
+    private TextView addressValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class SummaryOrder extends AppCompatActivity {
     }
 
     private void initializeViews() {
+        addressLabel = findViewById(R.id.textView14);
+        addressValue = findViewById(R.id.textView15);
         bookOrHome = findViewById(R.id.bookOrHome);
         next = findViewById(R.id.Next);
         vehicleImage = findViewById(R.id.vehicleImage);
@@ -48,6 +52,19 @@ public class SummaryOrder extends AppCompatActivity {
 
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(SummaryOrderViewModel.class);
+
+        String serviceCategory = getIntent().getStringExtra("serviceCategory");
+        boolean isSelfService = getIntent().getBooleanExtra("isSelfService", false);
+
+        if ("bookServices".equals(serviceCategory) && isSelfService) {
+            // Hide address fields for self-service bookings
+            addressLabel.setVisibility(View.GONE);
+            addressValue.setVisibility(View.GONE);
+        } else {
+            // Show address fields for home service or pickup service
+            addressLabel.setVisibility(View.VISIBLE);
+            addressValue.setVisibility(View.VISIBLE);
+        }
 
         // Get data from intent extras
         Bundle extras = getIntent().getExtras();
