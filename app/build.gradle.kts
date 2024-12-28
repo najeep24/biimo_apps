@@ -7,6 +7,7 @@ android {
     namespace = "com.example.finpro"
     compileSdk = 34
 
+
     defaultConfig {
         applicationId = "com.example.finpro"
         minSdk = 31
@@ -15,7 +16,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a"))
+        }
     }
+
+    sourceSets["main"].jniLibs.srcDirs("src/main/jniLibs")
 
     buildTypes {
         release {
@@ -45,6 +52,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.lifecycle.viewmodel.android)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -68,4 +76,8 @@ dependencies {
 
     // OkHttp Logging Interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    implementation ("com.google.firebase:firebase-auth:22.1.0")
+
+    implementation ("com.google.firebase:firebase-database:20.2.3")
 }
