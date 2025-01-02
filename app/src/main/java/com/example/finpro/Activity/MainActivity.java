@@ -12,21 +12,22 @@ import com.example.finpro.R;
 public class MainActivity extends AppCompatActivity {
 
     private CardView cardBookService, cardHomeService;
-    private View profileBtn;
+    private View profileBtn, inboxBtn; // Add inboxBtn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inisialisasi CardView
+        // Initialize CardView
         cardBookService = findViewById(R.id.cardBookService);
         cardHomeService = findViewById(R.id.cardHomeService);
 
-        // Inisialisasi Profile Button
+        // Initialize Buttons
         profileBtn = findViewById(R.id.profileBtn);
+        inboxBtn = findViewById(R.id.inboxBtn); // Add inboxBtn initialization
 
-        // Set onClickListener untuk cardBookService
+        // Set onClickListener for cardBookService
         cardBookService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set onClickListener untuk cardHomeService
+        // Set onClickListener for cardHomeService
         cardHomeService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,11 +47,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set onClickListener untuk profileBtn
+        // Set onClickListener for profileBtn
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for inboxBtn
+        inboxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class); // Navigate to ChatActivity
                 startActivity(intent);
             }
         });
