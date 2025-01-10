@@ -13,9 +13,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HomeServiceActivity extends AppCompatActivity {
 
-    private TextView tvBookingDate, tvBookingTime, tvBrand, tvModel;
     private TextView tvMontirName, tvMontirPhone, tvMontirVehicle, tvMontirPlateNo;
-    private TextView tvPickupAddress, tvPriceEstimation, vehicleTypeText;
+    private TextView tvPickupAddress, vehicleTypeText, tvBookingDate, tvBookingTime, tvBrand, tvModel, tvPriceEstimation, tvYear, tvVariant;
     private String orderId;
 
     @Override
@@ -46,16 +45,12 @@ public class HomeServiceActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
+        // Ensure these are initialized before using
         vehicleTypeText = findViewById(R.id.vehicleTypeText);
-        tvBrand = findViewById(R.id.tvBrand);
-        tvModel = findViewById(R.id.tvModel);
-        tvBookingDate = findViewById(R.id.tvBookingDate);
-        tvBookingTime = findViewById(R.id.tvBookingTime);
         tvMontirName = findViewById(R.id.tvMontirName);
         tvMontirPhone = findViewById(R.id.tvMontirPhone);
         tvMontirVehicle = findViewById(R.id.tvMontirVehicle);
         tvPickupAddress = findViewById(R.id.tvPickupAddress);
-        tvPriceEstimation = findViewById(R.id.tvPriceEstimation);
     }
 
     private void setMontirDetails(String name, String phone, String vehicle, String plateNo) {
@@ -74,23 +69,26 @@ public class HomeServiceActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Get and set vehicle details
+                    // Get additional details
                     String brand = dataSnapshot.child("brand").getValue(String.class);
                     String model = dataSnapshot.child("model").getValue(String.class);
                     String bookingDate = dataSnapshot.child("bookingDate").getValue(String.class);
                     String bookingTime = dataSnapshot.child("bookingTime").getValue(String.class);
                     String pickupAddress = dataSnapshot.child("pickupAddress").getValue(String.class);
                     String priceEstimation = dataSnapshot.child("priceEstimation").getValue(String.class);
+                    String year = dataSnapshot.child("year").getValue(String.class);
+                    String variant = dataSnapshot.child("variant").getValue(String.class);
 
-                    // Set values to TextViews
-                    if (brand != null) tvBrand.setText(brand.toUpperCase());
-                    if (model != null) tvModel.setText(model.toUpperCase());
-                    if (bookingDate != null) tvBookingDate.setText(bookingDate);
-                    if (bookingTime != null) tvBookingTime.setText(bookingTime);
-                    if (pickupAddress != null) tvPickupAddress.setText(pickupAddress);
-
-                    // Set vehicle type (assuming it's always "Motor" based on the layout)
-                    vehicleTypeText.setText("Motor");
+                    if (brand != null && tvBrand != null) tvBrand.setText(brand.toUpperCase());
+                    if (model != null && tvModel != null) tvModel.setText(model.toUpperCase());
+                    if (bookingDate != null && tvBookingDate != null) tvBookingDate.setText(bookingDate);
+                    if (bookingTime != null && tvBookingTime != null) tvBookingTime.setText(bookingTime);
+                    if (pickupAddress != null && tvPickupAddress != null) tvPickupAddress.setText(pickupAddress);
+                    if (year != null && tvYear != null) tvYear.setText(year);
+                    if (variant != null && tvVariant != null) tvVariant.setText(variant);
+                    if (vehicleTypeText != null) {
+                        vehicleTypeText.setText("Motor");
+                    }
                 }
             }
 
