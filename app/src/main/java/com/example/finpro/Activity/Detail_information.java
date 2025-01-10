@@ -4,16 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.finpro.Adaptor.SpinnerAdaptor;
 import com.example.finpro.R;
 import com.example.finpro.Viewmodel.DetailInformationViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -25,6 +36,8 @@ public class Detail_information extends AppCompatActivity {
     private RadioButton carButton, motorcycleButton;
     private DetailInformationViewModel viewModel;
     private String serviceCategory;
+    private View homeBtn, profileBtn, inboxBtn, activityBtn;
+    private ImageView back;
 
 
     @Override
@@ -59,6 +72,11 @@ public class Detail_information extends AppCompatActivity {
         spinnerModels = findViewById(R.id.spinner_models);
         spinnerVariants = findViewById(R.id.spinner_variants);
         spinnerYears = findViewById(R.id.spinner_years);
+        profileBtn = findViewById(R.id.profileBtn);
+        inboxBtn = findViewById(R.id.inboxBtn);
+        activityBtn = findViewById(R.id.activityBtn);
+        homeBtn = findViewById(R.id.homeBtn);
+        back = findViewById(R.id.back);
 
         radioGroup.check(R.id.radioBtn_motor);
     }
@@ -75,6 +93,98 @@ public class Detail_information extends AppCompatActivity {
             intent.putExtra("serviceCategory", serviceCategory);
             startActivity(intent);
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // This will go back to the previous activity
+            }
+        });
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Detail_information.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for profileBtn
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Detail_information.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for inboxBtn
+        inboxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Detail_information.this, ChatActivity.class); // Navigate to ChatActivity
+                startActivity(intent);
+            }
+        });
+
+        activityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser == null) {
+                    Toast.makeText(Detail_information.this, "Please login first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference("bookings");
+                bookingsRef.orderByChild("userId")
+                        .equalTo(currentUser.getUid())
+                        .limitToLast(1)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        String orderId = snapshot.getKey();
+                                        String serviceCategory = snapshot.child("serviceCategory").getValue(String.class);
+                                        boolean isSelfService = Boolean.TRUE.equals(
+                                                snapshot.child("isSelfService").getValue(Boolean.class));
+
+                                        Intent intent = new Intent(Detail_information.this, HomeServiceActivity.class);
+                                        intent.putExtra("orderId", orderId);
+                                        intent.putExtra("isSelfService", isSelfService);
+
+                                        // Add montir details if not self-service
+                                        if (!isSelfService) {
+                                            intent.putExtra("montirName",
+                                                    snapshot.child("montirName").getValue(String.class));
+                                            intent.putExtra("montirPhone",
+                                                    snapshot.child("montirPhone").getValue(String.class));
+                                            intent.putExtra("montirVehicle",
+                                                    snapshot.child("montirVehicle").getValue(String.class));
+                                            intent.putExtra("montirPlateNo",
+                                                    snapshot.child("montirPlateNo").getValue(String.class));
+                                        }
+
+                                        startActivity(intent);
+                                        return;
+                                    }
+                                } else {
+                                    Toast.makeText(Detail_information.this,
+                                            "No active orders found", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(Detail_information.this,
+                                        "Error fetching orders: " + databaseError.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             String vehicleType = (checkedId == R.id.radioBtn_motor) ? "motorcycle" : "cars";
@@ -104,6 +214,8 @@ public class Detail_information extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
+
+
 
     private void observeViewModel() {
         viewModel.getBrands().observe(this, brands ->

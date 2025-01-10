@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     private CardView cardBookService, cardHomeService, cardBiibot;
-    private View profileBtn, inboxBtn, activityBtn; // Add inboxBtn
+    private View homeBtn, profileBtn, inboxBtn, activityBtn; // Add inboxBtn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Buttons
         profileBtn = findViewById(R.id.profileBtn);
         inboxBtn = findViewById(R.id.inboxBtn);
-        activityBtn = findViewById(R.id.activityBtn); // Add inboxBtn initialization
+        activityBtn = findViewById(R.id.activityBtn);
+        homeBtn = findViewById(R.id.homeBtn);// Add inboxBtn initialization
 
         // Set onClickListener for cardBookService
         cardBookService.setOnClickListener(new View.OnClickListener() {

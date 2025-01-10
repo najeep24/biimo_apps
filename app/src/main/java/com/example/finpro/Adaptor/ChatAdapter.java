@@ -63,7 +63,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             leftText = itemView.findViewById(R.id.left_text);
             rightText = itemView.findViewById(R.id.right_text);
             aiLogo = itemView.findViewById(R.id.imageView5);
-            userProfile = itemView.findViewById(R.id.chatbotUser);
+            userProfile = itemView.findViewById(R.id.back);
         }
     }
 }

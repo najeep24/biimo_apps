@@ -53,7 +53,7 @@
         android:layout_marginStart="80dp">
 
         <ImageView
-            android:id="@+id/chatbotUser"
+            android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="8dp"
@@ -69,8 +69,8 @@
             android:layout_marginStart="12dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardElevation="0dp"
-            app:layout_constraintEnd_toStartOf="@+id/chatbotUser"
-            app:layout_constraintTop_toTopOf="@+id/chatbotUser">
+            app:layout_constraintEnd_toStartOf="@+id/back"
+            app:layout_constraintTop_toTopOf="@+id/back">
 
             <TextView
                 android:id="@+id/right_text"

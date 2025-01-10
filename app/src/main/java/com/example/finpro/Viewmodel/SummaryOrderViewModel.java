@@ -48,28 +48,7 @@ public class SummaryOrderViewModel extends ViewModel {
 
     // Modified setBookingDate with formatting
     public void setBookingDate(String value) {
-        try {
-            // Split the value if it's in "day, date" format
-            String[] parts = value.split(",");
-            int day = Integer.parseInt(parts[0].trim());
-            int month = Integer.parseInt(parts[1].trim());
 
-            // Create Calendar instance for current year
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-
-            // Set the date
-            calendar.set(year, month - 1, day); // month is 0-based in Calendar
-
-            // Format the date
-            SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.getDefault());
-            String formattedDate = outputFormat.format(calendar.getTime());
-            bookingDate.setValue(formattedDate);
-
-        } catch (Exception e) {
-            // Fallback to original value if parsing fails
-            bookingDate.setValue(value);
-        }
     }
 
     public void saveBookingTimestamp(String currentOrderId) {

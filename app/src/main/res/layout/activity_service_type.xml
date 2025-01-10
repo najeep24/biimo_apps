@@ -25,13 +25,13 @@
             android:text="Service Type"
             android:textColor="#244753"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/chatbotUser"
+            app:layout_constraintBottom_toBottomOf="@+id/back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/chatbotUser" />
+            app:layout_constraintTop_toTopOf="@+id/back" />
 
         <ImageView
-            android:id="@+id/chatbotUser"
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

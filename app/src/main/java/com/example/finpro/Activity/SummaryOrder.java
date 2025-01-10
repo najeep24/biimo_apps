@@ -55,6 +55,8 @@ public class SummaryOrder extends AppCompatActivity {
     private TextView priceEstimationText;
     private ImageView vehicleImage;
     private TextView next;
+    private View homeBtn, profileBtn, inboxBtn, activityBtn;
+    private ImageView back;
 
     private SummaryOrderViewModel viewModel;
 
@@ -86,6 +88,11 @@ public class SummaryOrder extends AppCompatActivity {
         priceEstimationText = findViewById(R.id.priceEstimationText);
         vehicleImage = findViewById(R.id.vehicleImage);
         next = findViewById(R.id.Next);
+        profileBtn = findViewById(R.id.profileBtn);
+        inboxBtn = findViewById(R.id.inboxBtn);
+        activityBtn = findViewById(R.id.activityBtn);
+        homeBtn = findViewById(R.id.homeBtn);
+        back = findViewById(R.id.back);
     }
 
     private void setupFirebase() {
@@ -111,6 +118,98 @@ public class SummaryOrder extends AppCompatActivity {
                 showError("Please log in to continue");
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // This will go back to the previous activity
+            }
+        });
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SummaryOrder.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for profileBtn
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SummaryOrder.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for inboxBtn
+        inboxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SummaryOrder.this, ChatActivity.class); // Navigate to ChatActivity
+                startActivity(intent);
+            }
+        });
+
+        activityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser == null) {
+                    Toast.makeText(SummaryOrder.this, "Please login first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                DatabaseReference bookingsRef = FirebaseDatabase.getInstance().getReference("bookings");
+                bookingsRef.orderByChild("userId")
+                        .equalTo(currentUser.getUid())
+                        .limitToLast(1)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        String orderId = snapshot.getKey();
+                                        String serviceCategory = snapshot.child("serviceCategory").getValue(String.class);
+                                        boolean isSelfService = Boolean.TRUE.equals(
+                                                snapshot.child("isSelfService").getValue(Boolean.class));
+
+                                        Intent intent = new Intent(SummaryOrder.this, HomeServiceActivity.class);
+                                        intent.putExtra("orderId", orderId);
+                                        intent.putExtra("isSelfService", isSelfService);
+
+                                        // Add montir details if not self-service
+                                        if (!isSelfService) {
+                                            intent.putExtra("montirName",
+                                                    snapshot.child("montirName").getValue(String.class));
+                                            intent.putExtra("montirPhone",
+                                                    snapshot.child("montirPhone").getValue(String.class));
+                                            intent.putExtra("montirVehicle",
+                                                    snapshot.child("montirVehicle").getValue(String.class));
+                                            intent.putExtra("montirPlateNo",
+                                                    snapshot.child("montirPlateNo").getValue(String.class));
+                                        }
+
+                                        startActivity(intent);
+                                        return;
+                                    }
+                                } else {
+                                    Toast.makeText(SummaryOrder.this,
+                                            "No active orders found", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Toast.makeText(SummaryOrder.this,
+                                        "Error fetching orders: " + databaseError.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
     }
 
     private void handleIntentData() {

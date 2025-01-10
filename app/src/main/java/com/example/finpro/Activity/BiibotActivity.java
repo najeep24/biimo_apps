@@ -1,6 +1,7 @@
 package com.example.finpro.Activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -16,6 +17,7 @@ import com.example.finpro.Viewmodel.ChatViewModel;
 public class BiibotActivity extends AppCompatActivity {
     private ChatViewModel chatViewModel;
     private ChatAdapter chatAdapter;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,14 @@ public class BiibotActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.isiChat);
         EditText messageInput = findViewById(R.id.message);
         ImageView sendButton = findViewById(R.id.send);
+        back = findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // This will go back to the previous activity
+            }
+        });
 
         chatViewModel = new ViewModelProvider(this).get(ChatViewModel.class);
 
