@@ -71,4 +71,7 @@ public class SummaryOrderViewModel extends ViewModel {
             bookingDate.setValue(value);
         }
     }
+
+    public void saveBookingTimestamp(String currentOrderId) {
+    }
 }

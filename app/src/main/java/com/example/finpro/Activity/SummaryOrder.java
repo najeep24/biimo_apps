@@ -356,6 +356,12 @@ public class SummaryOrder extends AppCompatActivity {
         String serviceCategory = viewModel.getServiceCategory().getValue();
         bookingData.put("serviceCategory", serviceCategory != null ? serviceCategory : "unknown");
 
+        // Add isSelfService flag
+        if ("bookServices".equalsIgnoreCase(serviceCategory)) {
+            boolean isSelfService = getIntent().getBooleanExtra("isSelfService", false);
+            bookingData.put("isSelfService", isSelfService);
+        }
+
         String pickupAddress = addressValue.getText().toString();
         if (!pickupAddress.isEmpty() && !"No address available".equals(pickupAddress)) {
             bookingData.put("pickupAddress", pickupAddress);
@@ -370,18 +376,21 @@ public class SummaryOrder extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     showLoading(false);
                     if (task.isSuccessful()) {
-                        Intent intent;
-                        if ("homeServices".equalsIgnoreCase(serviceCategory) || "pickup".equalsIgnoreCase(serviceCategory)) {
-                            intent = new Intent(SummaryOrder.this, HomeServiceActivity.class);
-                            // Pass montir details to HomeServiceActivity
+                        // Always direct to HomeServiceActivity but with different data
+                        Intent intent = new Intent(SummaryOrder.this, HomeServiceActivity.class);
+                        viewModel.saveBookingTimestamp(currentOrderId);
+
+                        // Only pass montir details if not self-service
+                        if (!"bookServices".equalsIgnoreCase(serviceCategory) ||
+                                !Boolean.TRUE.equals(bookingData.get("isSelfService"))) {
                             intent.putExtra("montirName", bookingData.get("montirName").toString());
                             intent.putExtra("montirPhone", bookingData.get("montirPhone").toString());
                             intent.putExtra("montirVehicle", bookingData.get("montirVehicle").toString());
                             intent.putExtra("montirPlateNo", bookingData.get("montirPlateNo").toString());
-                            intent.putExtra("orderId", currentOrderId);
-                        } else {
-                            intent = new Intent(SummaryOrder.this, OrderSucced.class);
                         }
+
+                        intent.putExtra("orderId", currentOrderId);
+                        intent.putExtra("isSelfService", Boolean.TRUE.equals(bookingData.get("isSelfService")));
                         startActivity(intent);
                         finish();
                     } else {
@@ -393,6 +402,7 @@ public class SummaryOrder extends AppCompatActivity {
                     Log.e(TAG, "Error saving booking data: " + e.getMessage());
                     showError("Network error. Please try again.");
                 });
+        Intent intent = new Intent(SummaryOrder.this, HomeServiceActivity.class);
     }
 
     private void showLoading(boolean isLoading) {
@@ -407,7 +417,12 @@ public class SummaryOrder extends AppCompatActivity {
     }
 
     private void observeViewModel() {
-        viewModel.getVehicleType().observe(this, value -> vehicleTypeText.setText(value));
+        viewModel.getVehicleType().observe(this, type -> {
+            vehicleImage.setImageResource(
+                    "car".equals(type.toLowerCase()) ?
+                            R.drawable.mobil : R.drawable.moge_summary
+            );
+        });
         viewModel.getBrand().observe(this, value -> brandText.setText(value));
         viewModel.getModel().observe(this, value -> modelText.setText(value));
         viewModel.getVariant().observe(this, value -> variantText.setText(value));
