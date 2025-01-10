@@ -156,7 +156,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:padding="20dp"
-                android:text="Montir akan segera ke tempat mu, mohon tunggu ya. . . ."
+                android:text="Mohon tunggu sebentar"
                 android:textAlignment="center"
                 android:textColor="#090909" />
 
@@ -248,7 +248,7 @@
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/inter_light"
-                    android:text="Service Type"
+                    android:text="Booking Type"
                     android:textColor="#000000"
                     android:textSize="14sp" />
 

@@ -3,16 +3,26 @@ package com.example.finpro.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.finpro.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class HomeServiceActivity extends AppCompatActivity {
 
@@ -24,6 +34,8 @@ public class HomeServiceActivity extends AppCompatActivity {
     private LinearLayout platDanMotor;
     private String orderId;
     private boolean isSelfService;
+    private View homeBtn, profileBtn, inboxBtn;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +81,48 @@ public class HomeServiceActivity extends AppCompatActivity {
         montirLabel = findViewById(R.id.montir);
         alamatLabel = findViewById(R.id.alamat);
         platDanMotor = findViewById(R.id.platDanMotor);
+        profileBtn = findViewById(R.id.profileBtn);
+        inboxBtn = findViewById(R.id.inboxBtn);
+        homeBtn = findViewById(R.id.homeBtn);
+        back = findViewById(R.id.back);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeServiceActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // This will go back to the previous activity
+            }
+        });
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeServiceActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for profileBtn
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeServiceActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for inboxBtn
+        inboxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeServiceActivity.this, ChatActivity.class); // Navigate to ChatActivity
                 startActivity(intent);
             }
         });
@@ -140,7 +189,20 @@ public class HomeServiceActivity extends AppCompatActivity {
                     }
 
                     // Set date and time
-                    if (dateText != null && bookingDate != null) dateText.setText(bookingDate);
+                    if (dateText != null && bookingDate != null) {
+                        try {
+                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.getDefault());
+                            Date date = inputFormat.parse(bookingDate);
+                            if (date != null) {
+                                dateText.setText(outputFormat.format(date));
+                            } else {
+                                dateText.setText(bookingDate);
+                            }
+                        } catch (ParseException e) {
+                            dateText.setText(bookingDate);
+                        }
+                    }
                     if (timeText != null && bookingTime != null) timeText.setText(bookingTime);
                 }
             }
