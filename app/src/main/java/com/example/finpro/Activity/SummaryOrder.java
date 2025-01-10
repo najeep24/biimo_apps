@@ -121,7 +121,19 @@ public class SummaryOrder extends AppCompatActivity {
 
         handleAddressVisibility(serviceCategory, isSelfService, pickupAddress);
         setViewModelData(intent.getExtras(), serviceCategory);
+
+        // Set the serviceCategory to the bookOrHome TextView with custom display
+        if (serviceCategory != null) {
+            if ("homeServices".equals(serviceCategory)) {
+                bookOrHome.setText("Home Service");
+            } else if ("bookServices".equals(serviceCategory)) {
+                bookOrHome.setText("Booking Service");
+            } else {
+                bookOrHome.setText("Unknown Service");
+            }
+        }
     }
+
 
     private void handleAddressVisibility(String serviceCategory, boolean isSelfService, String pickupAddress) {
         if ("homeServices".equals(serviceCategory)) {
