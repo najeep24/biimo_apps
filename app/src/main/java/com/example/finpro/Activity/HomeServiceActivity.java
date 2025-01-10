@@ -14,7 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeServiceActivity extends AppCompatActivity {
 
     private TextView tvMontirName, tvMontirPhone, tvMontirVehicle, tvMontirPlateNo;
-    private TextView tvPickupAddress, vehicleTypeText, tvBookingDate, tvBookingTime, tvBrand, tvModel, tvPriceEstimation, tvYear, tvVariant;
+    private TextView tvPickupAddress, vehicleTypeText, tvBookingDate, tvBookingTime, tvBrand, tvModel, tvPriceEstimation, tvYear, tvVariant, tvDescription;  // Add tvDescription
     private String orderId;
 
     @Override
@@ -51,6 +51,7 @@ public class HomeServiceActivity extends AppCompatActivity {
         tvMontirPhone = findViewById(R.id.tvMontirPhone);
         tvMontirVehicle = findViewById(R.id.tvMontirVehicle);
         tvPickupAddress = findViewById(R.id.tvPickupAddress);
+        tvDescription = findViewById(R.id.tvDescription);  // Initialize tvDescription
     }
 
     private void setMontirDetails(String name, String phone, String vehicle, String plateNo) {
@@ -78,7 +79,9 @@ public class HomeServiceActivity extends AppCompatActivity {
                     String priceEstimation = dataSnapshot.child("priceEstimation").getValue(String.class);
                     String year = dataSnapshot.child("year").getValue(String.class);
                     String variant = dataSnapshot.child("variant").getValue(String.class);
+                    String description = dataSnapshot.child("description").getValue(String.class);  // Fetch description
 
+                    // Set data to views
                     if (brand != null && tvBrand != null) tvBrand.setText(brand.toUpperCase());
                     if (model != null && tvModel != null) tvModel.setText(model.toUpperCase());
                     if (bookingDate != null && tvBookingDate != null) tvBookingDate.setText(bookingDate);
@@ -89,6 +92,9 @@ public class HomeServiceActivity extends AppCompatActivity {
                     if (vehicleTypeText != null) {
                         vehicleTypeText.setText("Motor");
                     }
+
+                    // Set description to the new TextView
+                    if (description != null && tvDescription != null) tvDescription.setText(description);
                 }
             }
 

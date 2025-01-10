@@ -127,7 +127,7 @@ public class SummaryOrder extends AppCompatActivity {
             if ("homeServices".equals(serviceCategory)) {
                 bookOrHome.setText("Home Service");
             } else if ("bookServices".equals(serviceCategory)) {
-                bookOrHome.setText("Booking Service");
+                bookOrHome.setText("Onsite Service");
             } else {
                 bookOrHome.setText("Unknown Service");
             }
@@ -352,6 +352,9 @@ public class SummaryOrder extends AppCompatActivity {
         bookingData.put("priceEstimation", priceEstimationText.getText().toString());
         bookingData.put("status", "pending");
         bookingData.put("createdAt", ServerValue.TIMESTAMP);
+
+        String serviceCategory = viewModel.getServiceCategory().getValue();
+        bookingData.put("serviceCategory", serviceCategory != null ? serviceCategory : "unknown");
 
         String pickupAddress = addressValue.getText().toString();
         if (!pickupAddress.isEmpty() && !"No address available".equals(pickupAddress)) {
