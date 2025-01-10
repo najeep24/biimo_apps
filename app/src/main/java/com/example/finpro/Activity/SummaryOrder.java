@@ -127,7 +127,7 @@ public class SummaryOrder extends AppCompatActivity {
             if ("homeServices".equals(serviceCategory)) {
                 bookOrHome.setText("Home Service");
             } else if ("bookServices".equals(serviceCategory)) {
-                bookOrHome.setText("Booking Service");
+                bookOrHome.setText("Onsite Service");
             } else {
                 bookOrHome.setText("Unknown Service");
             }
