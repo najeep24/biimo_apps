@@ -77,6 +77,22 @@ dependencies {
     // OkHttp Logging Interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+
+    // Add the dependency for the Vertex AI in Firebase library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-vertexai")
+
+    // Required for one-shot operations (to use `ListenableFuture` from Guava Android)
+    implementation("com.google.guava:guava:31.0.1-android")
+
+    // Required for streaming operations (to use `Publisher` from Reactive Streams)
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0'")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.google.code.gson:gson:2.8.9")
+
     implementation ("com.google.firebase:firebase-auth:22.1.0")
 
     implementation ("com.google.firebase:firebase-database:20.2.3")

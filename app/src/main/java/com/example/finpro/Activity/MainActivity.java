@@ -11,7 +11,7 @@ import com.example.finpro.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CardView cardBookService, cardHomeService;
+    private CardView cardBookService, cardHomeService, cardBiibot;
     private View profileBtn, inboxBtn; // Add inboxBtn
 
     @Override
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize CardView
         cardBookService = findViewById(R.id.cardBookService);
         cardHomeService = findViewById(R.id.cardHomeService);
+        cardBiibot = findViewById(R.id.cardBiibot);
 
         // Initialize Buttons
         profileBtn = findViewById(R.id.profileBtn);
@@ -43,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Detail_information.class);
                 intent.putExtra("serviceCategory", "homeServices");
+                startActivity(intent);
+            }
+        });
+
+        cardBiibot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BiibotActivity.class);
                 startActivity(intent);
             }
         });

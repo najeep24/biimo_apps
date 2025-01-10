@@ -46,6 +46,7 @@
         <!-- Other Activities -->
         <activity android:name=".Activity.Detail_information" android:exported="false" />
         <activity android:name=".Activity.BookingServices" android:exported="false" />
+        <activity android:name=".Activity.BiibotActivity" android:exported="false" />
         <activity android:name=".Activity.SummaryOrder" android:exported="false" />
         <activity android:name=".Activity.OrderSucced" android:exported="false" />
         <activity android:name=".Activity.ServiceType" android:exported="false" />
