@@ -353,6 +353,9 @@ public class SummaryOrder extends AppCompatActivity {
         bookingData.put("status", "pending");
         bookingData.put("createdAt", ServerValue.TIMESTAMP);
 
+        String serviceCategory = viewModel.getServiceCategory().getValue();
+        bookingData.put("serviceCategory", serviceCategory != null ? serviceCategory : "unknown");
+
         String pickupAddress = addressValue.getText().toString();
         if (!pickupAddress.isEmpty() && !"No address available".equals(pickupAddress)) {
             bookingData.put("pickupAddress", pickupAddress);
