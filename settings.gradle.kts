@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Finpro"
+rootProject.name = "Biimo"
 include(":app")
  
