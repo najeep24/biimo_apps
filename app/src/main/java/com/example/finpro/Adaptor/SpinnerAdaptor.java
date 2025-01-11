@@ -4,15 +4,16 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import java.util.List;
+import com.example.finpro.R;
 
 public class SpinnerAdaptor {
     public static void setupSpinner(Context context, Spinner spinner, List<String> items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 context,
-                android.R.layout.simple_spinner_item,
+                R.layout.custom_spinner_item,  // Using custom layout here
                 items
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);  // Using custom dropdown layout
         spinner.setAdapter(adapter);
     }
 }

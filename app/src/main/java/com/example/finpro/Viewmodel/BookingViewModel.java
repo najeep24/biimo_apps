@@ -9,9 +9,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BookingViewModel extends ViewModel {
     private final MutableLiveData<List<DateDomain>> dates = new MutableLiveData<>();
@@ -66,6 +69,17 @@ public class BookingViewModel extends ViewModel {
                 // Handle error
             }
         });
+    }
+
+    public void saveBookingTimestamp(String orderId) {
+        DatabaseReference bookingRef = FirebaseDatabase.getInstance()
+                .getReference("bookings")
+                .child(orderId);
+
+        Map<String, Object> timestampUpdate = new HashMap<>();
+        timestampUpdate.put("timestamp", ServerValue.TIMESTAMP);
+
+        bookingRef.updateChildren(timestampUpdate);
     }
 
     public void fetchTimeSlots(String year, String month, String date) {

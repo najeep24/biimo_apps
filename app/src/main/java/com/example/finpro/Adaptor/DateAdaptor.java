@@ -37,9 +37,9 @@ public class DateAdaptor extends RecyclerView.Adapter<DateAdaptor.ViewHolder> {
     }
 
     public void updateDates(List<DateDomain> newDates) {
-        dateDomains.clear();
-        dateDomains.addAll(newDates);
-        notifyDataSetChanged();
+        this.dateDomains.clear();
+        this.dateDomains.addAll(newDates);
+        notifyDataSetChanged();  // Notify the adapter to refresh the list
     }
 
     public void setSelectedDate(DateDomain date) {
@@ -70,14 +70,11 @@ public class DateAdaptor extends RecyclerView.Adapter<DateAdaptor.ViewHolder> {
         DateDomain date = dateDomains.get(position);
         holder.dayBook.setText(date.getDay());
         holder.dateBook.setText(date.getDate());
+
         String status = date.getStatus();
-
-        // Set the status background
         if (status.equalsIgnoreCase("Available")) {
-            holder.statusBook.setBackground(ContextCompat.getDrawable(
-                    holder.itemView.getContext(), R.drawable.status_date_bg_available));
+            holder.statusBook.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.status_date_bg_available));
 
-            // Enable click only for available dates
             holder.itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     selectedPosition = holder.getAdapterPosition();
@@ -85,14 +82,11 @@ public class DateAdaptor extends RecyclerView.Adapter<DateAdaptor.ViewHolder> {
                     notifyDataSetChanged();
                 }
             });
-
         } else if (status.equalsIgnoreCase("Not Available")) {
-            holder.statusBook.setBackground(ContextCompat.getDrawable(
-                    holder.itemView.getContext(), R.drawable.status_date_bg_not_available));
-            holder.itemView.setOnClickListener(null); // Disable click for unavailable dates
+            holder.statusBook.setBackground(ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.status_date_bg_not_available));
+            holder.itemView.setOnClickListener(null);  // Disable click for unavailable dates
         }
 
-        // Change mainLayout background and text color based on selection
         if (selectedPosition == position && status.equalsIgnoreCase("Available")) {
             holder.mainLayout.setBackgroundResource(R.drawable.date_book_cheked);
             holder.dayBook.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
@@ -103,6 +97,8 @@ public class DateAdaptor extends RecyclerView.Adapter<DateAdaptor.ViewHolder> {
             holder.dateBook.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.dark_gray));
         }
     }
+
+
 
     @Override
     public int getItemCount() {

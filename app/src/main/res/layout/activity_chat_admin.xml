@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".Activity.BiibotActivity">
+    tools:context=".Activity.ChatActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -23,13 +23,13 @@
             android:layout_height="0dp"
             android:background="@drawable/kotak_edt_text"
             android:elevation="3dp"
-            app:layout_constraintBottom_toBottomOf="@+id/message"
-            app:layout_constraintEnd_toEndOf="@+id/message"
-            app:layout_constraintStart_toStartOf="@+id/message"
-            app:layout_constraintTop_toTopOf="@+id/message" />
+            app:layout_constraintBottom_toBottomOf="@+id/messageAdmin"
+            app:layout_constraintEnd_toEndOf="@+id/messageAdmin"
+            app:layout_constraintStart_toStartOf="@+id/messageAdmin"
+            app:layout_constraintTop_toTopOf="@+id/messageAdmin" />
 
         <EditText
-            android:id="@+id/message"
+            android:id="@+id/messageAdmin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -41,12 +41,12 @@
             android:hint="Ada yang bisa saya bantu?"
             android:textColor="#1E1E1E"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/send"
+            app:layout_constraintEnd_toStartOf="@+id/sendAdmin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/send"
+            android:id="@+id/sendAdmin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -58,7 +58,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/isiChat"
+        android:id="@+id/isiChatAdmin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_extrabold"
-            android:text="Biibot"
+            android:text="Admin Biimo"
             android:textColor="#244753"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/back"
