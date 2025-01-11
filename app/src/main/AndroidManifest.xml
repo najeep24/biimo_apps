@@ -28,10 +28,13 @@
             </intent-filter>
         </activity>
 
+
+
         <!-- LoginActivity -->
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="true" />
+
 
         <!-- RegisterActivity -->
         <activity

@@ -5,7 +5,7 @@
     android:paddingVertical="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/left_chat"
+        android:id="@+id/left_chatAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp">
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView5">
 
             <TextView
-                android:id="@+id/left_text"
+                android:id="@+id/left_textAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sent_message_back"
@@ -46,7 +46,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/right_chat"
+        android:id="@+id/right_chatAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -73,7 +73,7 @@
             app:layout_constraintTop_toTopOf="@+id/back">
 
             <TextView
-                android:id="@+id/right_text"
+                android:id="@+id/right_textAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sent_message_back"

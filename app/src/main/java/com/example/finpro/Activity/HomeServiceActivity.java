@@ -35,7 +35,7 @@ public class HomeServiceActivity extends AppCompatActivity {
     private String orderId;
     private boolean isSelfService;
     private View homeBtn, profileBtn, inboxBtn;
-    private ImageView back;
+    private ImageView back, ilustrasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class HomeServiceActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
+        ilustrasi = findViewById(R.id.ilustrasi);
         vehicleTypeText = findViewById(R.id.vehicleTypeText);
         tvMontirName = findViewById(R.id.tvMontirName);
         tvMontirPhone = findViewById(R.id.tvMontirPhone);
@@ -149,6 +150,41 @@ public class HomeServiceActivity extends AppCompatActivity {
         if (tvMontirPlateNo != null) tvMontirPlateNo.setText(plateNo);
     }
 
+    private void updateIlustrasiImage(String status) {
+        if (ilustrasi != null) {
+            int imageResource;
+            switch (status.toLowerCase()) {
+                case "montir bersiap":
+                case "sedang siap menjemput":
+                    imageResource = R.drawable.driversiap2;
+                    break;
+                case "montir sedang dalam perjalanan":
+                case "sedang menjemput":
+                case "driver sedang mengantar":
+                    imageResource = R.drawable.driverotw;
+                    break;
+                case "montir sampai":
+                case "driver sudah datang":
+                case "driver sudah selesai mengantar":
+                    imageResource = R.drawable.driversudahdatang;
+                    break;
+                case "completed":
+                    imageResource = R.drawable.orderselesai;
+                    break;
+                case "booked":
+                    imageResource = R.drawable.orderditerima;
+                    break;
+                case "on going":
+                    imageResource = R.drawable.driverongoing;
+                    break;
+                default:
+                    imageResource = R.drawable.orderditerima; // Default image
+                    break;
+            }
+            ilustrasi.setImageResource(imageResource);
+        }
+    }
+
     private void fetchBookingDetails() {
         DatabaseReference bookingRef = FirebaseDatabase.getInstance()
                 .getReference("bookings")
@@ -158,6 +194,12 @@ public class HomeServiceActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+
+                    String status = dataSnapshot.child("status").getValue(String.class);
+                    if (status != null) {
+                        updateIlustrasiImage(status);
+                    }
+
                     String brand = dataSnapshot.child("brand").getValue(String.class);
                     String model = dataSnapshot.child("model").getValue(String.class);
                     String bookingDate = dataSnapshot.child("bookingDate").getValue(String.class);
