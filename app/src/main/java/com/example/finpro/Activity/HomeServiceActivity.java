@@ -1,6 +1,11 @@
 package com.example.finpro.Activity;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,11 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.example.finpro.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +32,8 @@ import java.util.Locale;
 
 public class HomeServiceActivity extends AppCompatActivity {
 
+    private static final String CHANNEL_ID = "description_updates_channel";
+
     private TextView tvMontirName, tvMontirPhone, tvMontirVehicle, tvMontirPlateNo;
     private TextView tvPickupAddress, vehicleTypeText, tvBookingDate, tvBookingTime;
     private TextView tvBrand, tvModel, tvPriceEstimation, tvYear, tvVariant, tvDescription;
@@ -36,12 +44,14 @@ public class HomeServiceActivity extends AppCompatActivity {
     private boolean isSelfService;
     private View homeBtn, profileBtn, inboxBtn;
     private ImageView back, ilustrasi;
+    private String previousDescription = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
+        createNotificationChannel();
         initializeViews();
 
         orderId = getIntent().getStringExtra("orderId");
@@ -54,7 +64,6 @@ public class HomeServiceActivity extends AppCompatActivity {
             String montirPlateNo = getIntent().getStringExtra("montirPlateNo");
             setMontirDetails(montirName, montirPhone, montirVehicle, montirPlateNo);
         } else {
-            // Hide montir-related views for self-service
             hideUnneededViews();
         }
 
@@ -87,177 +96,172 @@ public class HomeServiceActivity extends AppCompatActivity {
         homeBtn = findViewById(R.id.homeBtn);
         back = findViewById(R.id.back);
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeServiceActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); // This will go back to the previous activity
-            }
-        });
-
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeServiceActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // Set onClickListener for profileBtn
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeServiceActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // Set onClickListener for inboxBtn
-        inboxBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeServiceActivity.this, ChatActivity.class); // Navigate to ChatActivity
-                startActivity(intent);
-            }
-        });
+        next.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        back.setOnClickListener(v -> onBackPressed());
+        homeBtn.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        profileBtn.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
+        inboxBtn.setOnClickListener(v -> startActivity(new Intent(this, ChatActivity.class)));
     }
 
     private void hideUnneededViews() {
-        // Hide montir label and name
-        if (montirLabel != null) montirLabel.setVisibility(View.GONE);
-        if (tvMontirName != null) tvMontirName.setVisibility(View.GONE);
-
-        // Hide vehicle and plate info container
-        if (platDanMotor != null) platDanMotor.setVisibility(View.GONE);
-        if (tvMontirPhone != null) tvMontirPhone.setVisibility(View.GONE);
-
-        // Hide address label and value
-        if (alamatLabel != null) alamatLabel.setVisibility(View.GONE);
-        if (tvPickupAddress != null) tvPickupAddress.setVisibility(View.GONE);
+        montirLabel.setVisibility(View.GONE);
+        tvMontirName.setVisibility(View.GONE);
+        platDanMotor.setVisibility(View.GONE);
+        tvMontirPhone.setVisibility(View.GONE);
+        alamatLabel.setVisibility(View.GONE);
+        tvPickupAddress.setVisibility(View.GONE);
     }
 
     private void setMontirDetails(String name, String phone, String vehicle, String plateNo) {
-        if (tvMontirName != null) tvMontirName.setText(name);
-        if (tvMontirPhone != null) tvMontirPhone.setText(phone);
-        if (tvMontirVehicle != null) tvMontirVehicle.setText(vehicle);
-        if (tvMontirPlateNo != null) tvMontirPlateNo.setText(plateNo);
+        tvMontirName.setText(name);
+        tvMontirPhone.setText(phone);
+        tvMontirVehicle.setText(vehicle);
+        tvMontirPlateNo.setText(plateNo);
     }
 
     private void updateIlustrasiImage(String status) {
-        if (ilustrasi != null) {
-            int imageResource;
-            switch (status.toLowerCase()) {
-                case "montir bersiap":
-                case "sedang siap menjemput":
-                    imageResource = R.drawable.driversiap2;
-                    break;
-                case "montir sedang dalam perjalanan":
-                case "sedang menjemput":
-                case "driver sedang mengantar":
-                    imageResource = R.drawable.driverotw;
-                    break;
-                case "montir sampai":
-                case "driver sudah datang":
-                case "driver sudah selesai mengantar":
-                    imageResource = R.drawable.driversudahdatang;
-                    break;
-                case "completed":
-                    imageResource = R.drawable.orderselesai;
-                    break;
-                case "booked":
-                    imageResource = R.drawable.orderditerima;
-                    break;
-                case "on going":
-                    imageResource = R.drawable.driverongoing;
-                    break;
-                default:
-                    imageResource = R.drawable.orderditerima; // Default image
-                    break;
-            }
-            ilustrasi.setImageResource(imageResource);
+        int imageResource;
+        switch (status.toLowerCase()) {
+            case "montir bersiap":
+            case "sedang siap menjemput":
+                imageResource = R.drawable.driversiap2;
+                break;
+            case "montir sedang dalam perjalanan":
+            case "sedang menjemput":
+            case "driver sedang mengantar":
+                imageResource = R.drawable.driverotw;
+                break;
+            case "montir sampai":
+            case "driver sudah datang":
+            case "driver sudah selesai mengantar":
+                imageResource = R.drawable.driversudahdatang;
+                break;
+            case "completed":
+                imageResource = R.drawable.orderselesai;
+                break;
+            case "booked":
+                imageResource = R.drawable.orderditerima;
+                break;
+            case "on going":
+                imageResource = R.drawable.driverongoing;
+                break;
+            default:
+                imageResource = R.drawable.orderditerima;
+                break;
         }
+        ilustrasi.setImageResource(imageResource);
     }
 
     private void fetchBookingDetails() {
-        DatabaseReference bookingRef = FirebaseDatabase.getInstance()
-                .getReference("bookings")
-                .child(orderId);
+        DatabaseReference bookingRef = FirebaseDatabase.getInstance().getReference("bookings").child(orderId);
 
         bookingRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (!dataSnapshot.exists()) return;
 
-                    String status = dataSnapshot.child("status").getValue(String.class);
-                    if (status != null) {
-                        updateIlustrasiImage(status);
+                String status = dataSnapshot.child("status").getValue(String.class);
+                if (status != null) updateIlustrasiImage(status);
+
+                String description = dataSnapshot.child("description").getValue(String.class);
+                if (description != null && !description.equals(previousDescription)) {
+                    if (previousDescription != null) {
+                        showSystemNotification("Booking Update", description);
                     }
-
-                    String brand = dataSnapshot.child("brand").getValue(String.class);
-                    String model = dataSnapshot.child("model").getValue(String.class);
-                    String bookingDate = dataSnapshot.child("bookingDate").getValue(String.class);
-                    String bookingTime = dataSnapshot.child("bookingTime").getValue(String.class);
-                    String pickupAddress = dataSnapshot.child("pickupAddress").getValue(String.class);
-                    String year = dataSnapshot.child("year").getValue(String.class);
-                    String variant = dataSnapshot.child("variant").getValue(String.class);
-                    String description = dataSnapshot.child("description").getValue(String.class);
-                    String serviceCategory = dataSnapshot.child("serviceCategory").getValue(String.class);
-
-                    // Set data to views
-                    if (brand != null && tvBrand != null) tvBrand.setText(brand.toUpperCase());
-                    if (model != null && tvModel != null) tvModel.setText(model.toUpperCase());
-                    if (!isSelfService && pickupAddress != null && tvPickupAddress != null) {
-                        tvPickupAddress.setText(pickupAddress);
-                    }
-                    if (year != null && tvYear != null) tvYear.setText(year);
-                    if (variant != null && tvVariant != null) tvVariant.setText(variant);
-                    if (vehicleTypeText != null) vehicleTypeText.setText("Motor");
-                    if (description != null && tvDescription != null) tvDescription.setText(description);
-
-                    // Set service type text
-                    if (bookOrHome != null) {
-                        if ("homeServices".equals(serviceCategory)) {
-                            bookOrHome.setText("Home Service");
-                        } else if ("bookServices".equals(serviceCategory)) {
-                            bookOrHome.setText(isSelfService ? "Self Service" : "Onsite Service");
-                        }
-                    }
-
-                    // Set date and time
-                    if (dateText != null && bookingDate != null) {
-                        try {
-                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                            SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.getDefault());
-                            Date date = inputFormat.parse(bookingDate);
-                            if (date != null) {
-                                dateText.setText(outputFormat.format(date));
-                            } else {
-                                dateText.setText(bookingDate);
-                            }
-                        } catch (ParseException e) {
-                            dateText.setText(bookingDate);
-                        }
-                    }
-                    if (timeText != null && bookingTime != null) timeText.setText(bookingTime);
+                    previousDescription = description;
                 }
+
+                String brand = dataSnapshot.child("brand").getValue(String.class);
+                String model = dataSnapshot.child("model").getValue(String.class);
+                String bookingDate = dataSnapshot.child("bookingDate").getValue(String.class);
+                String bookingTime = dataSnapshot.child("bookingTime").getValue(String.class);
+                String pickupAddress = dataSnapshot.child("pickupAddress").getValue(String.class);
+                String year = dataSnapshot.child("year").getValue(String.class);
+                String variant = dataSnapshot.child("variant").getValue(String.class);
+                String serviceCategory = dataSnapshot.child("serviceCategory").getValue(String.class);
+
+                if (tvBrand != null && brand != null) tvBrand.setText(brand.toUpperCase());
+                if (tvModel != null && model != null) tvModel.setText(model.toUpperCase());
+                if (!isSelfService && pickupAddress != null) tvPickupAddress.setText(pickupAddress);
+                if (tvYear != null && year != null) tvYear.setText(year);
+                if (tvVariant != null && variant != null) tvVariant.setText(variant);
+                if (vehicleTypeText != null) vehicleTypeText.setText("Motor");
+                if (tvDescription != null && description != null) tvDescription.setText(description);
+
+                if (bookOrHome != null) {
+                    if ("homeServices".equals(serviceCategory)) {
+                        bookOrHome.setText("Home Service");
+                    } else {
+                        bookOrHome.setText(isSelfService ? "Self Service" : "Onsite Service");
+                    }
+                }
+
+                if (dateText != null && bookingDate != null) {
+                    try {
+                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        SimpleDateFormat outputFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy", Locale.getDefault());
+                        Date date = inputFormat.parse(bookingDate);
+                        dateText.setText(date != null ? outputFormat.format(date) : bookingDate);
+                    } catch (ParseException e) {
+                        dateText.setText(bookingDate);
+                    }
+                }
+
+                if (timeText != null && bookingTime != null) timeText.setText(bookingTime);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                showError("Failed to load booking details: " + databaseError.getMessage());
+            public void onCancelled(DatabaseError error) {
+                showError("Failed to load booking: " + error.getMessage());
             }
         });
     }
 
-    private void showError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    private void showError(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
+    private void showSystemNotification(String title, String message) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.biimologo)  // make sure this icon exists in res/drawable
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat manager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        manager.notify(1, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Description Update";
+            String description = "Channel for booking description updates";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            if (manager != null) manager.createNotificationChannel(channel);
+        }
+    }
 }
