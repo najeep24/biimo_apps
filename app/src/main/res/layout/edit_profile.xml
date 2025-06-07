@@ -191,12 +191,12 @@
     </LinearLayout>
 
     <!-- Log Out Button -->
+    <!-- About Button -->
     <LinearLayout
-        android:id="@+id/logout_button"
+        android:id="@+id/about_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/blank_box"
         android:gravity="center"
         android:orientation="horizontal"
@@ -204,6 +204,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_number_field">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="About"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Updated Constraint for Log Out Button -->
+    <LinearLayout
+        android:id="@+id/logout_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/blank_box"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/about_button">
 
         <TextView
             android:layout_width="0dp"
@@ -217,12 +241,14 @@
             android:id="@+id/logout_button_image"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="Log out"
-            android:src="@drawable/logout"
             android:clickable="true"
+            android:contentDescription="Log out"
             android:focusable="true"
             android:onClick="onLogoutClicked"
+            android:src="@drawable/logout"
             tools:ignore="DuplicateIds" />
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
