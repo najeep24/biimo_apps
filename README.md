@@ -62,13 +62,14 @@ BiiMo addresses common pain points in traditional vehicle workshop services: unc
 
 ## 📱 Screenshots
 
-| Home Screen | Booking Options | AI Chatbot |
-|-------------|-----------------|------------|
-| ![Home](screenshots/home.png) | ![Booking](screenshots/booking.png) | ![Chat](screenshots/chatbot.png) |
+### Dashboard, Book page and Chatbot
+![Home](https://github.com/najeep24/biimo_apps/blob/745e0591043c2562e18e2075d2550f7d6b3e1200/data/book.png)
 
-| Service Types | Home Service Location |
-|---------------|----------------------|
-| ![Services](screenshots/services.png) | ![Location](screenshots/location.png) |
+### Service Type
+![type](https://github.com/najeep24/biimo_apps/blob/745e0591043c2562e18e2075d2550f7d6b3e1200/data/serviceType.png)
+
+### Summary order
+![summary](https://github.com/najeep24/biimo_apps/blob/745e0591043c2562e18e2075d2550f7d6b3e1200/data/Summary.png)
 
 ## 🚀 Getting Started
 
