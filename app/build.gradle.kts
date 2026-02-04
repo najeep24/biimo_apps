@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
+    implementation("com.google.firebase:firebase-storage-ktx")
     implementation(libs.lifecycle.viewmodel.android)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)

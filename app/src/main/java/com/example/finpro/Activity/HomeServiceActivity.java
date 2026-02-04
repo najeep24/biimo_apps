@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button; // Added import for Button
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -39,6 +40,7 @@ public class HomeServiceActivity extends AppCompatActivity {
     private TextView tvBrand, tvModel, tvPriceEstimation, tvYear, tvVariant, tvDescription;
     private TextView bookOrHome, dateText, timeText;
     private TextView montirLabel, alamatLabel, next;
+    private Button btnGoToPayment; // New button for payment
     private LinearLayout platDanMotor;
     private String orderId;
     private boolean isSelfService;
@@ -81,6 +83,7 @@ public class HomeServiceActivity extends AppCompatActivity {
         tvMontirName = findViewById(R.id.tvMontirName);
         tvMontirPhone = findViewById(R.id.tvMontirPhone);
         next = findViewById(R.id.Next);
+        btnGoToPayment = findViewById(R.id.btn_go_to_payment);
         tvMontirVehicle = findViewById(R.id.tvMontirVehicle);
         tvPickupAddress = findViewById(R.id.tvPickupAddress);
         tvMontirPlateNo = findViewById(R.id.tvMontirPlat);
@@ -101,6 +104,15 @@ public class HomeServiceActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
         profileBtn.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
         inboxBtn.setOnClickListener(v -> startActivity(new Intent(this, ChatActivity.class)));
+        btnGoToPayment.setOnClickListener(v -> {
+            if (orderId != null && !orderId.isEmpty()) {
+                Intent intent = new Intent(HomeServiceActivity.this, PaymentActivity.class);
+                intent.putExtra("orderId", orderId);
+                startActivity(intent);
+            } else {
+                Toast.makeText(HomeServiceActivity.this, "Order ID is missing. Cannot proceed to payment.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void hideUnneededViews() {

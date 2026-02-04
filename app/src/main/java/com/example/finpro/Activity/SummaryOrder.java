@@ -475,21 +475,9 @@ public class SummaryOrder extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     showLoading(false);
                     if (task.isSuccessful()) {
-                        // Always direct to HomeServiceActivity but with different data
-                        Intent intent = new Intent(SummaryOrder.this, HomeServiceActivity.class);
-                        viewModel.saveBookingTimestamp(currentOrderId);
-
-                        // Only pass montir details if not self-service
-                        if (!"bookServices".equalsIgnoreCase(serviceCategory) ||
-                                !Boolean.TRUE.equals(bookingData.get("isSelfService"))) {
-                            intent.putExtra("montirName", bookingData.get("montirName").toString());
-                            intent.putExtra("montirPhone", bookingData.get("montirPhone").toString());
-                            intent.putExtra("montirVehicle", bookingData.get("montirVehicle").toString());
-                            intent.putExtra("montirPlateNo", bookingData.get("montirPlateNo").toString());
-                        }
-
+                        // Navigate to PaymentActivity
+                        Intent intent = new Intent(SummaryOrder.this, PaymentActivity.class);
                         intent.putExtra("orderId", currentOrderId);
-                        intent.putExtra("isSelfService", Boolean.TRUE.equals(bookingData.get("isSelfService")));
                         startActivity(intent);
                         finish();
                     } else {
@@ -501,7 +489,6 @@ public class SummaryOrder extends AppCompatActivity {
                     Log.e(TAG, "Error saving booking data: " + e.getMessage());
                     showError("Network error. Please try again.");
                 });
-        Intent intent = new Intent(SummaryOrder.this, HomeServiceActivity.class);
     }
 
     private void showLoading(boolean isLoading) {
